@@ -70,6 +70,19 @@ const displayController = (() => {
         boxes.forEach(boxe => {
         
         boxe.addEventListener('click', () => {
+            const allPossiblities = [
+            gameboard.gameboardArray1.length,
+            gameboard.gameboardArray2.length,
+            gameboard.gameboardArray3.length,
+            gameboard.gameboardArray4.length,
+            gameboard.gameboardArray5.length,
+            gameboard.gameboardArray6.length,
+            gameboard.gameboardArray7.length,
+            gameboard.gameboardArray8.length
+            ];
+            const totalPoss = allPossiblities.reduce((acc, curr) => acc + curr, 0);
+            // console.log(totalPoss);
+
             // Switches between player 1 and player 2
             // Adds X or O when box is clicked
             if (counter === 0) {
@@ -167,6 +180,22 @@ const displayController = (() => {
                         a.move()
                     );
                 }
+            if (totalPoss === 21) {
+                const bottom = document.querySelector('.bottom');
+                const para = document.createElement('p');
+                const button = document.createElement('button');
+                para.textContent = 'It is a tie!'
+                para.classList.add('para');
+                button.textContent = 'Play Again';
+                button.classList.add('retry');
+                bottom.appendChild(para);
+                bottom.appendChild(button);
+                
+                button.addEventListener('click', () => {
+                    location.reload()
+                })
+                counter = 2
+            }
             
             //Each possible win combination of arrays
             if (
@@ -230,9 +259,16 @@ const displayController = (() => {
                         })
                         counter = 2
                     }
+            
+                    
                 }
 
+            
+
+
         }, {once:true})
+
+        
     })
     
     
